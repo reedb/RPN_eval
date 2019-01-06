@@ -3,8 +3,8 @@ import math  as m
 import stack as s
 
 '''
-Implementation of a simple Reverse Polish Noation (RPN) expression
-parser/evaluator.
+  Implementation of a simple Reverse Polish Noation (RPN) expression
+  parser/evaluator.
 '''
 
 def eval_rpn(expression, x = 0):
