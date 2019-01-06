@@ -10,10 +10,11 @@
 //*****************************************************************************
 
 class EvalRPN {
-
     private:
+        Stack s();
 
     public:
-        EvalRPN()  { Stack s(); }    // Constructor
-        ~EvalRPN() { }              // Destructor
+        EvalRPN()  { }    // Constructor
+        ~EvalRPN() { }    // Destructor
+        double eval_rpn(char *expression, double x);
 };
