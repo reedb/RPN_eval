@@ -11,10 +11,15 @@
 
 class EvalRPN {
     private:
-        Stack s();
+        Stack s;
 
     public:
         EvalRPN()  { }    // Constructor
         ~EvalRPN() { }    // Destructor
         double eval_rpn(char *expression, double x);
+    private:
+        void   HandleBinary(char *pszWord);
+        double Str2D(char *pszWord);
+
+
 };
