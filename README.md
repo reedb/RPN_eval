@@ -1,5 +1,5 @@
 # RPN_eval
-A simple RPN evaluator in python: <br />
+As an educational exercise, a simple RPN evaluator in python: <br />
 - stack.py     - Implements stack (LIFO) data structure. <br />
 - eval_rpn.py  - Implements Reverse Polish Noation expression evaluator. <br />
 - integrate.py - Use the extended trapezoidal rule to calculate integrals. <br />
