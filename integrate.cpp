@@ -24,17 +24,17 @@ using namespace std;
 int main(void)
 {
     printf("Start\n");
-    Stack *s = new Stack;
-    double d = 3.1415;
-    s->Push(d);
-    printf("Pop: %lf\n", s->Pop());
-#ifdef fool
 
     EvalRPN *e = new EvalRPN;
 
-    printf("New object");
+    printf("New object\n");
 
-    assert(e->DoEvalRPN((char*)"10 3 -") == 7.0);
+    char sz[] = "10 3 -";
+    double dRes = e->DoEvalRPN(sz);
+    assert(dRes == 7.0);
+
+#ifdef fool
+
     assert eval_rpn('10 3 -') == 7
     assert eval_rpn('12 3 /') == 4
     assert eval_rpn('1 2 /') == 0.5
@@ -46,7 +46,7 @@ int main(void)
 DoEvalRPN(char *pszExpression, double x = 0.0)
 
 #endif
-    printf("Tests pass!");
+    printf("Tests pass!\n");
 
     return 0;
 }

@@ -122,7 +122,7 @@ double EvalRPN::Str2D(char *pszVal)
 
 //*****************************************************************************
 //
-// eval_rpn - Evaluate a RPN expression.
+// DoEvalRPN - Evaluate a RPN expression.
 //
 // Paramaters:
 //   pszExpression - Pointer to string containing RPN expression
