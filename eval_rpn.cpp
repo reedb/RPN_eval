@@ -132,9 +132,14 @@ double EvalRPN::Str2D(char *pszVal)
 //
 //*****************************************************************************
 
-double EvalRPN::DoEvalRPN(char *pszExpression, double x)
+double EvalRPN::DoEvalRPN(const char *pszExpression, double x)
 {
-    char *pszWord = strtok(pszExpression, szDelimiter);
+    if (strlen(pszExpression) > MAX_EXP_LEN) {
+        cout << "Expression string to long. Max: " << MAX_EXP_LEN << "\n";
+        exit(EXIT_FAILURE);
+    }
+    strncpy(szExp, pszExpression, MAX_EXP_LEN);
+    char *pszWord = strtok(szExp, szDelimiter);
     while (pszWord != NULL) {
         if (strcasestr(szBinOp, pszWord) != NULL) HandleBinary(pszWord);
         else if (strcasestr(szUnaryOp, pszWord) != NULL) HandleUnary(pszWord);

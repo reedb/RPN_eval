@@ -21,10 +21,8 @@ using namespace std;
 
 void assert_eval(const char *pszExpression, double dShouldBe, double x = 0.0)
 {
-    static char szExp[1024];
-    strncpy(szExp, pszExpression, 1023);
     EvalRPN *e = new EvalRPN;
-    double dRes = e->DoEvalRPN(szExp, x);
+    double dRes = e->DoEvalRPN(pszExpression, x);
     assert(dRes == dShouldBe);
 }
 

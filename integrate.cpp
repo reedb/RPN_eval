@@ -21,32 +21,27 @@
 
 using namespace std;
 
+double ExtTrapIntegral(char *fun_rpn, double a, double b, int N)
+{
+    EvalRPN *e = new EvalRPN;
+    double h = (b - a) / (double) N;
+    double s = 0.5 * e->DoEvalRPN(fun_rpn, a) + 0.5 * e->DoEvalRPN(fun_rpn, b);
+    for (int k = 1; k < N; k++) {
+        s += e->DoEvalRPN(fun_rpn, (a + k * h));
+    }
+    return h*s;
+}
+
 int main(void)
 {
-    printf("Start\n");
+    // The following string is the RPN equivelent of x**4 - 2*x + 1
+    //
+    static char szExp[1024] = "x 4 pow 2 x * - 1 +";
 
-    EvalRPN *e = new EvalRPN;
+    double dRes = ExtTrapIntegral(szExp, 0.0, 2.0, 1000);
 
-    printf("New object\n");
-
-    char sz[] = "10 3 -";
-    double dRes = e->DoEvalRPN(sz);
-    assert(dRes == 7.0);
-
-#ifdef fool
-
-    assert eval_rpn('10 3 -') == 7
-    assert eval_rpn('12 3 /') == 4
-    assert eval_rpn('1 2 /') == 0.5
-    assert eval_rpn('4 2 pow') == 16
-    assert eval_rpn('X 2 pow', 4) == 16
-    assert eval_rpn('25 sqrt') == 5
-    assert eval_rpn('10 3 5 + *') == eval_rpn('3 5 + 10 *')
-
-DoEvalRPN(char *pszExpression, double x = 0.0)
-
-#endif
-    printf("Tests pass!\n");
+    printf("Calculated: %lf\n", dRes);
+    printf("Exact: 4.4\n");
 
     return 0;
 }

@@ -9,14 +9,17 @@
 //
 //*****************************************************************************
 
+#define MAX_EXP_LEN 1023
+
 class EvalRPN {
     private:
         Stack s;
+        char szExp[MAX_EXP_LEN+1];
 
     public:
         EvalRPN()  { }    // Constructor
         ~EvalRPN() { }    // Destructor
-        double DoEvalRPN(char *expression, double x = 0.0);
+        double DoEvalRPN(const char *expression, double x = 0.0);
     private:
         void HandleBinary(char *pszWord);
         void HandleUnary(char *pszWord);
