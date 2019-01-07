@@ -21,6 +21,6 @@ using namespace std;
 
 int main(void)
 {
-    EvalRPN e();
+    EvalRPN e;
     return 0;
 }

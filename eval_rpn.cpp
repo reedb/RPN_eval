@@ -13,6 +13,7 @@
 #include <stdlib.h>
 #include <cstdio>
 #include <string.h>
+#define _USE_MATH_DEFINES   // for M_PI
 #include <math.h>
 #include <iostream>
 
@@ -32,23 +33,16 @@ const char szBinOp[] = "- + * / % pow";
 const char szUnaryOp[] = "sqrt sin cos";
 const char szConVarOp[] = "pi e x";
 
-#ifdef fool
-
-            if word=='%'  : result = op2 % op1
-            if word=='pow': result = m.pow(op2, op1)
-            stack.push(result)
-        elif word in ['sqrt', 'sin', 'cos']: # unary operators
-            op1 = stack.pop()
-            if word=='sqrt': result = m.sqrt(op1)
-            if word=='sin' : result = m.sin(op1)
-            if word=='cos' : result = m.cos(op1)
-            stack.push(result)
-        elif word in ['pi', 'e', 'x']: # constants, variables
-            if word=='pi' : stack.push(m.pi)
-            if word=='e'  : stack.push(m.e)
-            if word=='x'  : stack.push(x)
-
-#endif
+//*****************************************************************************
+//
+// HandleBinary - Handle binary operators.
+//
+// Paramaters:
+//   pszVal - String pointer to current word being parsed.
+//
+// Returns - Nothing
+//
+//*****************************************************************************
 
 void EvalRPN::HandleBinary(char *pszWord)
 {
@@ -68,7 +62,48 @@ void EvalRPN::HandleBinary(char *pszWord)
 
 //*****************************************************************************
 //
-// EvalRPN::Str2D() - Convert a floating point string value into a double.
+// HandleUnary - Handle unary operators.
+//
+// Paramaters:
+//   pszVal - String pointer to current word being parsed.
+//
+// Returns - Nothing
+//
+//*****************************************************************************
+
+void EvalRPN::HandleUnary(char *pszWord)
+{
+    double dRes;
+    double dOp1 = s.Pop();
+
+    if (strcasecmp("sqrt", pszWord) == 0) dRes = sqrt(dOp1);
+    if (strcasecmp("sin",  pszWord) == 0) dRes = sin(dOp1);
+    if (strcasecmp("cos",  pszWord) == 0) dRes = cos(dOp1);
+
+    s.Push(dRes);
+}
+
+//*****************************************************************************
+//
+// HandleConVar - Handle constant and variable operands.
+//
+// Paramaters:
+//   pszVal - String pointer to current word being parsed.
+//
+// Returns - Nothing
+//
+//*****************************************************************************
+
+void EvalRPN::HandleConVar(char *pszWord, double x)
+{
+    if (strcasecmp("pi", pszWord) == 0) s.Push(M_PI);
+    if (strcasecmp("e",  pszWord) == 0) s.Push(M_E);
+    if (strcasecmp("x",  pszWord) == 0) s.Push(x);
+}
+
+//*****************************************************************************
+//
+// Str2D - Convert a floating point string value into a double.
 //
 // Paramaters:
 //   pszVal - Pointer to  a floating point string value.
@@ -76,6 +111,7 @@ void EvalRPN::HandleBinary(char *pszWord)
 // Returns: Value of floating point string.
 //
 //*****************************************************************************
+
 double EvalRPN::Str2D(char *pszVal)
 {
     double dRes;
@@ -86,7 +122,7 @@ double EvalRPN::Str2D(char *pszVal)
 
 //*****************************************************************************
 //
-// EvalRPN::eval_rpn() - Evaluate a RPN expression.
+// eval_rpn - Evaluate a RPN expression.
 //
 // Paramaters:
 //   pszExpression - Pointer to string containing RPN expression
@@ -96,15 +132,13 @@ double EvalRPN::Str2D(char *pszVal)
 //
 //*****************************************************************************
 
-double EvalRPN::eval_rpn(char *pszExpression, double x = 0.0)
+double EvalRPN::DoEvalRPN(char *pszExpression, double x = 0.0)
 {
     char *pszWord = strtok(pszExpression, szDelimiter);
     while (pszWord != NULL) {
         if (strcasestr(szBinOp, pszWord) != NULL) HandleBinary(pszWord);
-        else if (strcasestr(szUnaryOp, pszWord) != NULL) {
-        }
-        else if (strcasestr(szUnaryOp, pszWord) != NULL) {
-        }
+        else if (strcasestr(szUnaryOp, pszWord) != NULL) HandleUnary(pszWord);
+        else if (strcasestr(szConVarOp, pszWord) != NULL) HandleConVar(pszWord, x);
         else s.Push(Str2D(pszWord));
         pszWord = strtok(NULL, szDelimiter);
     }
