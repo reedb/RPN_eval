@@ -132,7 +132,7 @@ double EvalRPN::Str2D(char *pszVal)
 //
 //*****************************************************************************
 
-double EvalRPN::DoEvalRPN(char *pszExpression, double x = 0.0)
+double EvalRPN::DoEvalRPN(char *pszExpression, double x)
 {
     char *pszWord = strtok(pszExpression, szDelimiter);
     while (pszWord != NULL) {

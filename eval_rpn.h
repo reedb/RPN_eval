@@ -16,7 +16,7 @@ class EvalRPN {
     public:
         EvalRPN()  { }    // Constructor
         ~EvalRPN() { }    // Destructor
-        double DoEvalRPN(char *expression, double x);
+        double DoEvalRPN(char *expression, double x = 0.0);
     private:
         void HandleBinary(char *pszWord);
         void HandleUnary(char *pszWord);
