@@ -33,5 +33,5 @@ double Stack::Pop(void) {
         exit(EXIT_FAILURE);
     }
     size--;
-    return data[size-1];
+    return data[size];
 }

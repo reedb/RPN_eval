@@ -23,9 +23,18 @@ using namespace std;
 
 int main(void)
 {
-    EvalRPN *e = new EvalRPN;
-    assert(e->DoEvalRPN((char*)"10 3 -") == 7.0);
+    printf("Start\n");
+    Stack *s = new Stack;
+    double d = 3.1415;
+    s->Push(d);
+    printf("Pop: %lf\n", s->Pop());
 #ifdef fool
+
+    EvalRPN *e = new EvalRPN;
+
+    printf("New object");
+
+    assert(e->DoEvalRPN((char*)"10 3 -") == 7.0);
     assert eval_rpn('10 3 -') == 7
     assert eval_rpn('12 3 /') == 4
     assert eval_rpn('1 2 /') == 0.5
