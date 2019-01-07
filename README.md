@@ -8,4 +8,6 @@ Some simple math helpers in C++: <br />
 - stack.cpp     -<br />
 - eval_rpn.cpp  -<br />
 - integrate.cpp -<br />
-- build_cpp.sh  - Build the C++ solution, shell script.
+- build_cpp.sh  - Build the C++ solution, shell script.<br />
+- test_eval.cpp - Tests eval_rpn.cpp <br />
+- build_test_cpp.sh - Build the expression evaluator tester, shell script.<br />
